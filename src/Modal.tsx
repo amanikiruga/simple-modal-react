@@ -1,3 +1,5 @@
+import ReactDOM from "react-dom";
+
 type ModalProps = {
     isOpen: boolean;
     children: React.ReactNode;
@@ -6,14 +8,15 @@ type ModalProps = {
 
 const Modal = (props: ModalProps) => {
     if (!props.isOpen) return null;
-    return (
+    return ReactDOM.createPortal(
         <div>
             <div className="non-modal-overlay" />
             <div className="modal">
                 <button onClick={props.onCloseModalBtn}>Close Button</button>
                 {props.children}
             </div>
-        </div>
+        </div>,
+        document.getElementById("modal-root") as Element
     );
 };
 
